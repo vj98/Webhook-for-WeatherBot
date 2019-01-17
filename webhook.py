@@ -25,6 +25,8 @@ def webhook():
     return r
 
 def makeResponse(req):
+    if req.get("result").get("action") != "fetchWeatherForecast":
+        return {}
     result = req.get("result")
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
