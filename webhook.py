@@ -11,6 +11,8 @@ app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
+    if req.get("result").get("action") != "fetchWeatherForecast":
+        return {}
     req = request.get_json(silent=True, force=True)
     print(json.dumps(req, indent=4))
     
