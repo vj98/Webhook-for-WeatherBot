@@ -11,8 +11,6 @@ app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    if req.get("result").get("action") != "fetchWeatherForecast":
-        return {}
     req = request.get_json(silent=True, force=True)
     print(json.dumps(req, indent=4))
     
@@ -34,7 +32,7 @@ def makeResponse(req):
     r=requests.get('http://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid=5cdd7176182583fb8591ff4e4030bf12')
     json_object = r.json()
     weather=json_object['list']
-    for i in range(0,30):
+    for i in len(weather):
         if date in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
             break
